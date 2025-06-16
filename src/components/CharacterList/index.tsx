@@ -17,13 +17,26 @@ export default function CharacterList({ characterUrls }: CharacterListProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  /**
+ * Effect hook to fetch character data when character URLs change
+ * 
+ * This effect:
+ * - Extracts character IDs from URLs
+ * - Fetches all characters in parallel for better performance
+ * - Handles loading states and error scenarios
+ * - Cleans up properly to prevent memory leaks
+ */
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
         setLoading(true);
+        // Extract character IDs from URLs
+        // URLs typically look like: "https://rickandmortyapi.com/api/character/1"
         const characterIds = characterUrls.map(url => url.split('/').pop());
         const characterPromises = characterIds.map(id => api.getCharacter(Number(id)));
+        // Fetch all characters in parallel
         const characterData = await Promise.all(characterPromises);
+        // Update state with fetched characters
         setCharacters(characterData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load characters');
