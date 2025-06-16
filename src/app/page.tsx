@@ -20,20 +20,9 @@ export default function Home() {
       <div className="flex-1 p-8 overflow-y-auto">
         {selectedEpisode ? (
           <div>
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {selectedEpisode.name}
-              </h1>
-              <div className="flex items-center space-x-4 text-gray-600">
-                <span>{selectedEpisode.episode}</span>
-                <span>•</span>
-                <span>{selectedEpisode.air_date}</span>
-              </div>
-            </div>
-
             <div>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Characters
+               {selectedEpisode.characters.length} Characters in episode {selectedEpisode.episode} {selectedEpisode.name}
               </h2>
               <CharacterList characterUrls={selectedEpisode.characters} />
             </div>

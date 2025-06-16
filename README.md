@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rick and Morty Episode Viewer
+
+A Next.js application that displays Rick and Morty episodes and their characters using the Rick and Morty API.
+
+## Features
+
+- **Episode List**: Browse through all Rick and Morty episodes with infinite scroll
+- **Character Grid**: View characters that appear in each episode with 100x100 images
+- **Interactive UI**: Click episodes to view details, click again to deselect
+- **Modern Styling**: Built with Tailwind CSS v4
+
+## Tech Stack
+
+- **Framework**: Next.js 14+ with App Router
+- **Styling**: Tailwind CSS v4
+- **Language**: TypeScript
+- **Image Optimization**: Next.js Image component
+- **API**: Rick and Morty API (https://rickandmortyapi.com/)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd frontend-assessment-walmart
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Components
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### EpisodesList
 
-## Learn More
+- Displays episodes in a scrollable sidebar
+- Implements infinite scroll for pagination
+- Shows episode number, name, and air date
+- Highlights selected episode with blue background
 
-To learn more about Next.js, take a look at the following resources:
+### CharacterList
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Fetches and displays characters for selected episode
+- Shows character images in a responsive grid
+- Images are 100x100px squares with character names below
+- Handles text wrapping for long character names
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Configuration
 
-## Deploy on Vercel
+### Tailwind CSS v4
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The project uses Tailwind CSS v4 with the new import syntax:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```css
+/* globals.css */
+@import "tailwindcss";
+```
+
+### Next.js Image Domains
+
+Configure allowed image domains in `next.config.js`:
+
+```js
+module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "rickandmortyapi.com",
+        pathname: "/api/character/avatar/**",
+      },
+    ],
+  },
+};
+```
+
+## API Integration
+
+The app integrates with the Rick and Morty API:
+
+- **Episodes**: `https://rickandmortyapi.com/api/episode`
+- **Characters**: Individual character URLs from episode data
+
+## Usage
+
+1. **Browse Episodes**: Scroll through the episode list on the left sidebar
+2. **Select Episode**: Click any episode to view its details and characters
+3. **View Characters**: Characters appear in a grid on the right side
+4. **Deselect**: Click the same episode again to clear the selection
+5. **Infinite Scroll**: More episodes load automatically as you scroll down
+
+## Development
+
+### Code Structure
+
+- Components use TypeScript for type safety
+- Functional components with React hooks
+- Props interfaces for component contracts
+- Error handling for API calls
+
+## Build and Deploy
+
+```bash
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
